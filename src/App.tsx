@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import DashboardPage from "./pages/DashboardPage";
-import KalenderPage from "./pages/KalenderPage";
-import AkademikPage from "./pages/AkademikPage";
-import CatatanPage from "./pages/CatatanPage";
-import TodoPage from "./pages/TodoPage";
-import NotificationToggle from "./components/NotificationToggle";
+import DashboardPage from "@/pages/DashboardPage";
+import KalenderPage from "@/pages/KalenderPage";
+import AkademikPage from "@/pages/AkademikPage";
+import CatatanPage from "@/pages/CatatanPage";
+import TodoPage from "@/pages/TodoPage";
+import NotificationToggle from "@/components/NotificationToggle";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<"dashboard" | "kalender" | "akademik" | "catatan" | "todo">("dashboard");
