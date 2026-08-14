@@ -2,12 +2,12 @@ import { useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import { DoorOpen, LayoutGrid, BookOpen, CheckSquare, CalendarDays, StickyNote } from "lucide-react";
 
-import DashboardPage from "@/pages/DashboardPage";
-import KalenderPage from "@/pages/KalenderPage";
-import AkademikPage from "@/pages/AkademikPage";
-import CatatanPage from "@/pages/CatatanPage";
-import TodoPage from "@/pages/TodoPage";
-import NotificationToggle from "@/components/NotificationToggle";
+import DashboardPage from "./pages/DashboardPage";
+import KalenderPage from "./pages/KalenderPage";
+import AkademikPage from "./pages/AkademikPage";
+import CatatanPage from "./pages/CatatanPage";
+import TodoPage from "./pages/TodoPage";
+import NotificationToggle from "./components/NotificationToggle";
 
 type TabKey = "dashboard" | "akademik" | "todo" | "kalender" | "catatan";
 
