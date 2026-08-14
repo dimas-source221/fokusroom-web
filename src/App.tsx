@@ -1,87 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import DashboardPage from './pages/DashboardPage';
+import KalenderPage from './pages/KalenderPage';
+import AkademikPage from './pages/AkademikPage';
+import CatatanPage from './pages/CatatanPage';
+import TodoPage from './pages/TodoPage';
+import NotificationToggle from './components/NotificationToggle';
 
-function App() {
-  const [permission, setPermission] = useState<NotificationPermission>('default');
-
-  useEffect(() => {
-    if ('Notification' in window) {
-      setPermission(Notification.permission);
-    }
-  }, []);
-
-  const requestNotification = async () => {
-    if ('Notification' in window) {
-      const result = await Notification.requestPermission();
-      setPermission(result);
-      if (result === 'granted') {
-        alert('Notifikasi berhasil diaktifkan!');
-      }
-    } else {
-      alert('Browser kamu tidak mendukung notifikasi.');
-    }
-  };
+export default function App() {
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'kalender' | 'akademik' | 'catatan' | 'todo'>('dashboard');
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      backgroundColor: '#0f172a',
-      color: '#f8fafc',
-      fontFamily: 'sans-serif',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px'
-    }}>
-      <div style={{
-        backgroundColor: '#1e293b',
-        padding: '30px',
-        borderRadius: '16px',
-        border: '1px solid #334155',
-        textAlign: 'center',
-        maxWidth: '400px',
-        width: '100%'
-      }}>
-        <h1 style={{ margin: '0 0 10px 0', fontSize: '24px', color: '#38bdf8' }}>
-          🎯 Fokusroom App
-        </h1>
-        <p style={{ color: '#94a3b8', fontSize: '14px', marginBottom: '20px' }}>
-          Sistem Notifikasi & Agenda Terintegrasi
-        </p>
+    <div style={{ minHeight: '100vh', backgroundColor: '#0f172a', color: '#f8fafc', fontFamily: 'sans-serif' }}>
+      {/* Header Navigasi */}
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 2rem', backgroundColor: '#1e293b', borderBottom: '1px solid #334155' }}>
+        <h1 style={{ margin: 0, fontSize: '1.5rem', color: '#38bdf8' }}>🎯 Fokusroom</h1>
+        
+        <nav style={{ display: 'flex', gap: '10px' }}>
+          <button onClick={() => setActiveTab('dashboard')} style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', backgroundColor: activeTab === 'dashboard' ? '#0284c7' : '#334155', color: 'white', cursor: 'pointer' }}>Dashboard</button>
+          <button onClick={() => setActiveTab('kalender')} style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', backgroundColor: activeTab === 'kalender' ? '#0284c7' : '#334155', color: 'white', cursor: 'pointer' }}>Kalender</button>
+          <button onClick={() => setActiveTab('akademik')} style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', backgroundColor: activeTab === 'akademik' ? '#0284c7' : '#334155', color: 'white', cursor: 'pointer' }}>Akademik</button>
+          <button onClick={() => setActiveTab('catatan')} style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', backgroundColor: activeTab === 'catatan' ? '#0284c7' : '#334155', color: 'white', cursor: 'pointer' }}>Catatan</button>
+          <button onClick={() => setActiveTab('todo')} style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', backgroundColor: activeTab === 'todo' ? '#0284c7' : '#334155', color: 'white', cursor: 'pointer' }}>To-Do</button>
+        </nav>
 
-        <div style={{
-          backgroundColor: '#0f172a',
-          padding: '12px',
-          borderRadius: '8px',
-          fontSize: '13px',
-          marginBottom: '20px',
-          border: '1px solid #334155'
-        }}>
-          Status Notifikasi: <strong style={{ color: permission === 'granted' ? '#4ade80' : '#f87171' }}>
-            {permission === 'granted' ? 'Aktif 🔔' : 'Belum Aktif 🔕'}
-          </strong>
-        </div>
+        <NotificationToggle />
+      </header>
 
-        {permission !== 'granted' && (
-          <button
-            onClick={requestNotification}
-            style={{
-              backgroundColor: '#0284c7',
-              color: 'white',
-              border: 'none',
-              padding: '12px 20px',
-              borderRadius: '8px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              width: '100%'
-            }}
-          >
-            Aktifkan Notifikasi Push
-          </button>
-        )}
-      </div>
+      {/* Konten Halaman */}
+      <main style={{ padding: '2rem' }}>
+        {activeTab === 'dashboard' && <DashboardPage />}
+        {activeTab === 'kalender' && <KalenderPage />}
+        {activeTab === 'akademik' && <AkademikPage />}
+        {activeTab === 'catatan' && <CatatanPage />}
+        {activeTab === 'todo' && <TodoPage />}
+      </main>
     </div>
   );
 }
-
-export default App;
